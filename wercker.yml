@@ -1,0 +1,16 @@
+box: debian
+build:
+  steps:
+    - arjen/hugo-build:
+        version: "0.15"
+        theme: hyde-x
+        flags: --buildDrafts=true
+deploy:
+  steps:
+    - install-packages:
+        packages: git ssh-client
+    - leipert/git-push:
+         gh_oauth: $GIT_TOKEN
+         repo: ahmedas91/ahmedas91.github.io
+         branch: master
+         basedir: public
