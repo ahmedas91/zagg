@@ -1,4 +1,4 @@
-baseurl = "ahmedas91.github.io"
+baseurl = /ahmedas91
 title = "Ahmad Mohammad"
 languageCode = "en-us"
 MetaDataFormat = "toml"
