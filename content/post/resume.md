@@ -7,6 +7,7 @@ title = "resume"
 
 +++
 
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/0.embed"></iframe>
 
 <div>$$
 J(w)=\frac { 1 }{ m } \sum _{ i=1 }^{ m }\left[ -{ y }^{ (i) }log\left( \frac { 1 }{ 1+{ e }^{ -({ w }^{ T }{ x }^{ (i) }) } }  \right) -(1-{ y }^{ (i) })log\left( 1-\frac { 1 }{ 1+{ e }^{ -({ w }^{ T }{ x }^{ (i) }) } }  \right)  \right] + \frac{ \lambda  }{ 2m } \sum _{ j=1 }^{ n }{{ w }_{ j }^{ 2 }}$$</div>
