@@ -24,7 +24,7 @@
 }
 @media (min-width: 58em) {
   .sidebar-about img {
-    margin: 0 0 1rem 0;
+    margin: 0 0 1.5rem 0;
     width: 200px;
     height: 200px;
   }
@@ -41,7 +41,7 @@
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: .25em;
+  border-radius: 1em;
 }
 a.label:hover,
 a.label:focus {
