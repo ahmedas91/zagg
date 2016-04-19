@@ -1,24 +1,20 @@
+
 +++
 categories = []
 date = "2016-04-05"
-description = "hopefully this works out but still every thing needs some work"
+description = "Solving a Kaggle's Digit Recognition competition."
 keywords = []
 title = "Kaggle Digits Recognition"
 
 +++
-Dr. Anderw Ng's [machine leanring class](https://www.coursera.org/learn/machine-learning) excercises provide detailed walkthrough for solving a simple digit recognition problem, A LOT beter then than my humble attempt below on kaggle's [Digit Recognizer](https://www.kaggle.com/c/digit-recognizer) competition. Here I'm just applying what i've learned on a Kaggle competition using python's `sklearn` library. 
 
-## Libraries
-- [Numpy](http://www.numpy.org/)
-- [Matplotlib](matplotlib.org/)
-- [sklearn](scikit-learn.org/)
-- [pandas](http://pandas.pydata.org/)
+In this post, I'll solve  Kaggle's [Digit Recognizer](https://www.kaggle.com/c/digit-recognizer) competition using python's machine learning library `sklearn`. However, if you want to check out an implementation from scratch, I have uploaded one on this repo on github. 
 
 ## Exploring the data 
+
+
 ```python
 import numpy as np
-import matplotlib.pyplot as plt
-%matplotlib inline
 
 X =  np.genfromtxt('train.csv',dtype='int_', 
                    delimiter=',', skip_header=1)
@@ -28,8 +24,13 @@ x_train = X[:,1:]
 y_train = X[:,0]
 ```
 
-Each row in the `x_train` and `x_test` data is a 28x28 pixels image with a total of 784 pixels. Therefore, we will write a simple function takes randomly selected rows, reshapes them into 28x28 matrices and desplay them using `matplotlib.image.mpimg`. 
+Each row in the `x_train` and `x_test` data is a 28x28 pixels image with a total of 784 pixels. Therefore, we will write a simple function takes randomly selected rows, reshapes them into 28x28 matrices and display them using `matplotlib.image.mpimg`. 
+
+
 ```python
+import matplotlib.pyplot as plt
+%matplotlib inline
+
 def display(n):    
     for i in range(1,(n**2)+1):
         plt.subplot(n,n,i)
@@ -38,29 +39,36 @@ def display(n):
         imgplot = plt.imshow(pic, cmap='Greys')
 display(5)
 ```
-{{< figure src="/images/digits.png"
->}}
+{{< figure src="/images/digits.png">}}
 
 ## Training the data
-We're going to use a cross validated logistic linear regression function with an l2 regulaization using sklearn's `linear_model.LogisticRegressionCV`. Since we have 10 classes 0 to 9, we'll also need the `multiclass.OneVsRestClassifier`.
+
+We're going to use a cross validated logistic linear regression function with an l2 regularization using sklearn's `linear_model.LogisticRegressionCV`. Since we have 10 classes 0 to 9, we'll also need the `multiclass.OneVsRestClassifier`.
+
+
 ```python
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.linear_model import LogisticRegressionCV
-classifier = OneVsRestClassifier(LogisticRegressionCV(penalty='l2', 
-                                                      n_jobs = -1)) 
+
+classifier = OneVsRestClassifier(LogisticRegressionCV(penalty='l2', n_jobs = -1)) 
 classifier.fit(x_train, y_train)
 ```
+
 Now let's check the accuracy of the training data. 
+
+
 ```python
 # predict y using the train set
 y_predicted = classifier.predict(x_train)             
 accuracy = np.mean((y_predicted == y_train) * 100)
 print "Training set accuracy: {0:.4f}%".format(accuracy)
 ```
-`Training set accuracy: 93.1619%`
 
 ## Submitting the data
+
 We're gonna do the same thing with but with the x_test data and do some data cleaning for submission. 
+
+
 ```python
 # predict y using the test set
 y_test = classifier.predict(x_test) 
@@ -75,4 +83,5 @@ y_test.columns = ['ImageId','Label']
 # write the data to csv file in the directory               
 y_test.to_csv('y_test_kaggle_digits.csv', index=False) 
 ```
+
 After submitting the csv file we get an accuracy of 0.91100 which is not that bad (unless you check the rank and realize we're at the buttom!!). 
