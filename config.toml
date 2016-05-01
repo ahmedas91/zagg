@@ -48,7 +48,7 @@ paginate = 10
 
     # Displays under the author name in the sidebar, keep it short.
     # You can use markdown here.
-    tagline = "Your favourite quote or soundbite."
+    tagline = "Just a simple space where present my some of my work. (still under development)"
 
     # Text for the top menu link, which goes the root URL for the site.
     # Default (if omitted) is "Blog".
@@ -56,7 +56,7 @@ paginate = 10
 
     # Metadata used to drive integrations.
     googleAnalytics = "Your Google Analytics tracking code"
-    gravatarHash = "MD5 hash of your Gravatar email address"
+    gravatarHash = "a37ea5697481d6e1d370d499c8f22694"
 
     # Sidebar social links, these must be full URLs.
     github = "https://github.com/ahmedas91"
