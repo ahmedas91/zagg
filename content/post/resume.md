@@ -6,4 +6,7 @@ keywords = []
 title = "Hunting Down Growth Stocks"
 
 +++
-[A naive way to hunt down growth stocks. (Ipythone Notebook)](https://nbviewer.jupyter.org/gist/ahmedas91/b9d894638488aa5d65fcc8c04673d2f9)
+
+<iframe src="https://nbviewer.jupyter.org/gist/ahmedas91/b9d894638488aa5d65fcc8c04673d2f9" width="1000" height="4300"></iframe> 
+
+
