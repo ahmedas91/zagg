@@ -48,7 +48,7 @@ paginate = 10
 
     # Displays under the author name in the sidebar, keep it short.
     # You can use markdown here.
-    tagline = "Just a simple space where present my some of my work. (still under development)"
+    tagline = "Just a simple ipythone notebook blog. (still under development)"
 
     # Text for the top menu link, which goes the root URL for the site.
     # Default (if omitted) is "Blog".
