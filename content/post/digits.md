@@ -2,7 +2,7 @@
 +++
 categories = []
 date = "2016-04-05"
-description = "Solving a Kaggle's Digit Recognition competition."
+description = ""
 keywords = []
 title = "Kaggle Digits Recognition"
 
