@@ -7,6 +7,6 @@ title = "Boston Housing Prices"
 
 +++
 
-<iframe src="https://nbviewer.jupyter.org/gist/ahmedas91/f93dc91562c06549f5890924d50d7c61" width="1000" height="4300"></iframe> 
+<iframe src="https://nbviewer.jupyter.org/gist/ahmedas91/f93dc91562c06549f5890924d50d7c61" width="1000" height="100000"></iframe> 
 
 
