@@ -1,13 +1,13 @@
 +++
 categories = []
 date = "2016-04-05T20:55:56+03:00"
-description = " "
+description = "On my test post, we'll solve  Kaggle's Digit Recognizer competition using python's machine learning library `sklearn`. It a really simple problem and used as a starting point (along with the Titanic one). "
 keywords = []
 title = "Kaggle Digits Recognition"
 
 +++
 
-In this post, I'll solve  Kaggle's [Digit Recognizer](https://www.kaggle.com/c/digit-recognizer) competition using python's machine learning library `sklearn`. However, if you want to check out an implementation from scratch, I have uploaded one on this repo on github. 
+On my test post, we'll solve  Kaggle's [Digit Recognizer](https://www.kaggle.com/c/digit-recognizer) competition using python's machine learning library `sklearn`. It a really simple problem and used as a starting point (along with the [Titanic](https://www.kaggle.com/c/titanic) one) Kaggle competitions. If you want to check out an implementation from scratch, I have uploaded one on this repo on github. 
 
 ## Exploring the data 
 
@@ -83,4 +83,4 @@ y_test.columns = ['ImageId','Label']
 y_test.to_csv('y_test_kaggle_digits.csv', index=False) 
 ```
 
-After submitting the csv file we get an accuracy of 0.91100 which is not that bad (unless you check the rank and realize we're at the buttom!!). 
+After submitting the csv file we get an accuracy of 0.91100 which is not that bad (unless you check the rank and realize we're at the bottom!!). 
