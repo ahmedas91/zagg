@@ -41,7 +41,7 @@ paginate = 10
 
     # Select a syntax highight.
     # Check the static/css/highlight directory for options.
-    highlight = "github"
+    highlight = "googlecode"
 
     # Optional additional custom CSS file URL, will override other styles.
     customCSS = ""
