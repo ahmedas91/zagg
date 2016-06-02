@@ -163,14 +163,14 @@ pre {
   display: block;
   margin-top: 0;
   margin-bottom: 1rem;
-  padding: 1rem;
+  padding: .15rem;
   font-size: .8rem;
   line-height: 1.4;
   white-space: pre;
   white-space: pre-wrap;
   word-break: break-all;
   word-wrap: break-word;
-  background-color: #f9f9f9;
+  background-color: #6a9fb5;
 }
 pre code {
   padding: 0;
