@@ -7,6 +7,8 @@ build:
         flags: --buildDrafts=true
 deploy:
   steps:
+    - install-packages:
+         packages: git ssh-client
     - leipert/git-push:
          gh_oauth: $GIT_TOKEN
          repo: ahmedas91/ahmedas91.github.io
