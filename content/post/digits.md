@@ -7,8 +7,7 @@ title = "Kaggle Digits Recognition"
 
 +++
 
-On my test post, we'll solve  Kaggle's [Digit Recognizer](https://www.kaggle.com/c/digit-recognizer) competition using python's machine learning library `sklearn`. It a really simple problem and used as a starting point (along with the [Titanic](https://www.kaggle.com/c/titanic) one) Kaggle competitions. If you want to check out an implementation from scratch, I have uploaded one on this repo on github. 
-
+On my test post, we'll solve  Kaggle's [Digit Recognizer](https://www.kaggle.com/c/digit-recognizer) competition using python's machine learning library `sklearn`. It a really simple problem and used as a starting point (along with the [Titanic](https://www.kaggle.com/c/titanic) one) Kaggle competitions. 
 ## Exploring the data 
 
 
@@ -42,45 +41,69 @@ display(5)
 
 ## Training the data
 
-We're going to use a cross validated logistic linear regression function with an l2 regularization using sklearn's `linear_model.LogisticRegressionCV`. Since we have 10 classes 0 to 9, we'll also need the `multiclass.OneVsRestClassifier`.
-
-
+#### Logistic regression
 ```python
-from sklearn.multiclass import OneVsRestClassifier
 from sklearn.linear_model import LogisticRegressionCV
-
-classifier = OneVsRestClassifier(LogisticRegressionCV(penalty='l2', n_jobs = -1)) 
-classifier.fit(x_train, y_train)
+model_log = LogisticRegressionCV(multi_class='multinomial') 
+model_log.fit(x_train, y_train)
 ```
-
-Now let's check the accuracy of the training data. 
-
-
+#### Random forests
 ```python
-# predict y using the train set
-y_predicted = classifier.predict(x_train)             
-accuracy = np.mean((y_predicted == y_train) * 100)
-print "Training set accuracy: {0:.4f}%".format(accuracy)
+from sklearn.ensemble import RandomForestClassifier
+model_rf = RandomForestClassifier(1000)
+model_rf = ran.fit(x_train,y_train)
 ```
+#### Neural Networks
+```python
+import import tensorflow.contrib.learn as skflow
+#Tensorflow library only accept numbers with type float
+x_train = x_train.astype('float32')
+y_train = y_train.astype('float32')
+x_test = x_test.astype('float32')
+model_nn = skflow.TensorFlowDNNClassifier(hidden_units=[100,50], n_classes=10, steps=100000)
+model_nn.fit(x_train, y_train)
+```
+Now let's check the accuracy of the training data. 
+```python
+print 'Logistic regression', model_log.score(x_train, y_train)
+print 'Random forests', model_rf.score(x_train, y_train)
+print 'Neural networks', model_nn.score(x_train, y_train)
+```
+prints:
+`Logistic regression 0.941357142857`
+`Random forests 1.0`
+`Neural networks 0.99328571428571433`
 
-## Submitting the data
+# Submitting the data
 
 We're gonna do the same thing with but with the x_test data and do some data cleaning for submission. 
 
 
 ```python
-# predict y using the test set
-y_test = classifier.predict(x_test) 
-# kaggles requires the submission to include an index column         
-index = np.arange(1,len(x_test)+1, dtype=int)  
-# merging the y_test and index columns        
-y_test = np.column_stack((index,y_test))
-# convert to pandas dataframe
-y_test = pd.DataFrame(y_test)
-# headers required for the submission                          
-y_test.columns = ['ImageId','Label']    
-# write the data to csv file in the directory               
-y_test.to_csv('y_test_kaggle_digits.csv', index=False) 
+def submit(model,x_test, name):
+    # predict y using the test set
+    y_test = model.predict(x_test) 
+    # kaggles requires the submission to include an index column         
+    index = np.arange(1,len(x_test)+1, dtype=int)  
+    # merging the y_test and index columns        
+    y_test = np.column_stack((index,y_test))
+    # convert to pandas dataframe
+    y_test = pd.DataFrame(y_test)
+    # headers required for the submission                          
+    y_test.columns = ['ImageId','Label']    
+    # write the data to csv file in the directory    
+    y_test = y_test.astype('int')
+    y_test.to_csv("".join([name,'.csv']), index=False) 
 ```
+```python
+submit(model_log,x_test,'model_log')
+submit(model_rf,x_test,'model_rf')
+submit(model_nn,x_test,'model_nn')
+```
+### Results
 
-After submitting the csv file we get an accuracy of 0.91100 which is not that bad (unless you check the rank and realize we're at the bottom!!). 
+| Model               | Test Accuracy Score |
+|---------------------|---------------------|
+| Logistic Regression | 0.91771             |
+| Random Forests      | 0.96800             |
+| Neural Networks     | 0.94900             |
