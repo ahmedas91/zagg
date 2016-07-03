@@ -1,6 +1,6 @@
 +++
 categories = []
-date = "2016-04-05T20:55:56+03:00"
+date = "2016-01-05T20:55:56+03:00"
 description = "On my test post, we'll solve  Kaggle's Digit Recognizer competition using python's machine learning library `sklearn`. It a really simple problem and used as a starting point (along with the Titanic one). "
 keywords = []
 title = "Kaggle Digits Recognition"
