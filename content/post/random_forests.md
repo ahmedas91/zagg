@@ -65,5 +65,5 @@ Complex quantitative models to predict the stock market price movement and gener
 
 Code to produce all the results above below:
 
-<iframe src="http://nbviewer.jupyter.org/gist/ahmedas91/9dca6aa31911bede1c8242ea861bd4f3" width="1000" height="6800"></iframe> 
+<iframe src="http://nbviewer.jupyter.org/gist/ahmedas91/9dca6aa31911bede1c8242ea861bd4f3" width="1000" height="6750"></iframe> 
 
