@@ -1,6 +1,6 @@
 +++
 categories = []
-date = "2016-02-15T20:55:56+03:00"
+date = "2016-06-26T20:55:56+03:00"
 description = "Each year, a bunch of news sites and organizations publish lists of the most innovative companies. Can we use those lists to hunt down growth companies? To answer the question, I aggregated those lists from the sites and compared the holding period return for the listed companies from 2012 to 2015."
 keywords = []
 title = "Hunting Down Growth Stocks"
@@ -77,7 +77,7 @@ iplot({
                     height=600)
     })
 ```
-<iframe width="900" height="800" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/0.embed"></iframe>
+<iframe width="950" height="450" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/0.embed"></iframe>
 
 The above chart shows an astonishing results with an average return of 66%. Around 87% of the companies showed a positive holding period return. So can we conclude that we can just rely on the experts for hunting big growth companies? Let's not get our hopes up yet. Let's first check if we just invested in the S&P 500 and compare its cumulative returns with a portfolio of equal weights of the stocks above.
 ```pyhon
@@ -109,7 +109,7 @@ iplot({
             height=600)
 })
 ```
-<iframe width="900" height="800" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/4.embed"></iframe>
+<iframe width="950" height="450" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/4.embed"></iframe>
 
-Well, we're still beating the market by about 30%. So can we really just let the experts do it for us? Well maybe use their lists as preliminary screener only.
+Well, we're still beating the market by about 30%. So can we really just let the experts do it for us? Maybe use their lists as preliminary screener only.
 
