@@ -10,9 +10,9 @@ Growth companies are those with huge potential returns and are often found in th
 
 >A growth company is any firm whose business generates significant positive cash flows or earnings, which increase at significantly faster rates than the overall economy. 
 
-So how can we spot those kind of companies? We can screan stocks based on annual earning growth, revenues growth, return on equity...etc. We can also look for companies developing disruptive technologies. But could we just let the experts do it for us? for free? Well this is what I am exploring in this post. 
+So how can we spot those kind of companies? We can screen stocks based on annual earning growth, revenues growth, return on equity...etc. We can also look for companies developing disruptive technologies. But could we just let the experts do it for us? for free? Well this is what I am exploring in this post. 
 
-Each year, a bunch of news sites and organizations publish lists of the most innovative companies. In this post, I aggregated those lists from the sites and compared the holding period return for the listed companies from 2012 to 2015. Not all companies in the lists were included. Only those with that are listed on either NASDAQ, NYSE and AMEX, and Trading in the stock market during the whole holding period. You can download the aggregated list from the [repo](https://github.com/ahmedas91/Hunting_growth_stocks) on github. The data are collected from the below soursec. Note that for Forves list, I could not find the whole list for 2012, only the top ten. 
+Each year, a bunch of news sites and organizations publish lists of the most innovative companies. In this post, I aggregated those lists from the sites and compared the holding period return for the listed companies from 2012 to 2015. Not all companies in the lists were included. Only those with that are listed on either NASDAQ, NYSE and AMEX, and Trading in the stock market during the whole holding period. You can download the aggregated list from the [repo](https://github.com/ahmedas91/Hunting_growth_stocks) on github. The data are collected from the below sources. Note that for Forbes list, I could not find the whole list for 2012, only the top ten. 
 
 - [Forbes](http://www.forbes.com/sites/samanthasharf/2012/09/05/the-ten-most-innovative-companies-in-america/#3f28c5aa23d3) 
 - [Barclays](http://www.businessinsider.com/presenting-the-39-companies-that-will-win-through-innovation-2012-4?op=1)
@@ -24,12 +24,13 @@ Each year, a bunch of news sites and organizations publish lists of the most inn
 
 ## loading the data
 ```python
-# first we import the required libraries
+# import the required libraries
 import pandas as pd
 import pandas_datareader.data as web
 import datetime
-import matplotlib.pyplot as plt
-%matplotlib inline  
+from plotly.offline import download_plotlyjs, init_notebook_mode, iplot
+import cufflinks as cf
+init_notebook_mode()
 ```
 ```python
 # Load the aggregated list of companies
@@ -37,79 +38,44 @@ data = pd.read_csv("TOP_COMP_2012.csv")
 start = datetime.datetime(2013, 1, 1)
 end = datetime.datetime(2015, 12, 31)
 tickers = list(data['ticker'])
-```
-```python
-# importing the stock prices from yahoo finance
-ls_key = 'Adj Close'
-f = web.DataReader(tickers, 'yahoo',start,end)
-cleanData = f.ix[ls_key]
-stock_data = pd.DataFrame(cleanData)
+# importing the stock prices
+stock_data = web.DataReader(tickers, 'yahoo',start,end)['Adj Close']
 ```
 ## Results
 ```python
-# Calulating the holding period returns 
-returns = (stock_data.iloc[-1]/stock_data.iloc[0] - 1)
-returns = pd.DataFrame(returns)
+# Calculating the holding period returns (HPR)
+returns = pd.DataFrame(stock_data.iloc[-1]/stock_data.iloc[0] - 1)
 returns = returns.sort_values(by = [0], ascending=False)
-returns['ticker'] = list(returns.index)
-returns.columns = ['HPR','ticker']
+returns.columns = ['HPR']
 ```
 ```python
-#Average return
-avg_return = returns['HPR'].mean(axis=0)*100
-# percentage of positive returns
-percentage_positive = len(returns[returns['HPR']>0])/float(len(returns))*100 
+returns.iplot(kind='bar',title='Holding Period Returns', dimensions=(900,400))
 ```
-```python
-import plotly.graph_objs as go
-from plotly.offline import download_plotlyjs, init_notebook_mode, iplot
-init_notebook_mode()
-iplot({
-"data": [
-    go.Bar(
-        x=returns['ticker'],
-        y=returns['HPR']
-    )
-        ],
-'layout': go.Layout(yaxis=go.YAxis(title='Holding Period Return', tickformat='%'), 
-                    autosize=False,
-                    width=850,
-                    height=600)
-    })
-```
-<iframe width="950" height="450" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/0.embed"></iframe>
+<iframe width="950" height="450" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/24.embed"></iframe>
 
-The above chart shows an astonishing results with an average return of 66%. Around 87% of the companies showed a positive holding period return. So can we conclude that we can just rely on the experts for hunting big growth companies? Let's not get our hopes up yet. Let's first check if we just invested in the S&P 500 and compare its cumulative returns with a portfolio of equal weights of the stocks above.
+```python
+print 'Average return: ' + str(returns['HPR'].mean(axis=0)*100)
+print 'Percentage of stocks with positive returns: ' + str(len(returns[returns['HPR']>0])/float(len(returns))*100 )
+
+# prints
+# Average return: 65.9479896729
+$ Percentage of stocks with positive returns: 87.2093023256
+```
+
+The above chart shows an astonishing results with an average return of 66%. Around 87% of the companies showed a positive holding period return. So can we conclude that we can just rely on the experts for hunting big growth companies? Let's not get our hopes up yet. Let's first check if we just invested in the S&P 500 and compare its cumulative returns with a but and hold portfolio of equal weights of the stocks above. 
+
 ```pyhon
-# Importing the s&p price index
-ff = web.DataReader("^GSPC", 'yahoo',start,end)
-s_p = pd.DataFrame(ff['Adj Close'])
-
-# calculating the daily cumulative returns during the period
-sp = pd.DataFrame([0])
-portfolio = pd.DataFrame([0])
-for i in range(1,len(stock_data)):
-    sp_returns = (s_p.iloc[i]/s_p.iloc[0] - 1)[0]
-    portfolio_returns = (stock_data.iloc[i]/stock_data.iloc[0] - 1).mean(axis=0)
-    sp = sp.append([sp_returns])
-    portfolio = portfolio.append([portfolio_returns])    
-cum_returns = pd.concat([portfolio, sp], axis=1)
-cum_returns.columns = ['Portfolio','S&P']
-cum_returns = cum_returns.set_index(stock_data.index)
-
-iplot({
-'data':[
-    go.Scatter(
-            x = cum_returns.index,
-            y = cum_returns[col],
-            name = col) for col in cum_returns.columns],
-'layout': go.Layout(yaxis=go.YAxis(title='Holding Period Return', tickformat='%'), 
-            autosize=False,
-            width=950,
-            height=600)
-})
+s_p = pd.DataFrame(web.DataReader("^GSPC", 'yahoo',start,end)['Adj Close'])
+s_p_returns = ((s_p/s_p.iloc[0,:])-1)
+cum_returns = pd.concat([pd.DataFrame(((stock_data/stock_data.iloc[0,:])-1).mean(axis=1)), 
+                         s_p_returns],
+                        axis=1)
+cum_returns.columns = ['Buy and Hold', 'S&P']  
 ```
-<iframe width="950" height="450" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/4.embed"></iframe>
+```python
+(cum_returns*100).iplot(dimensions=(900, 400), layout={'yaxis': {'ticksuffix':'%'}})
+```
+<iframe width="950" height="450" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/30.embed"></iframe>
 
-Well, we're still beating the market by about 30%. So can we really just let the experts do it for us? Maybe use their lists as preliminary screener only.
+Well, we're still beating the market by about 30%. So can we really just let the experts do it for us? Well maybe use their lists as preliminary screener only. In a later post, we will explore further portfolio strategies other than the buy and hold one and see whether we can beat it. 
 
