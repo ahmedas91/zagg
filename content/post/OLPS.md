@@ -7,5 +7,5 @@ title = "Comparing Online Portfolio Selection Algorithms"
 
 +++
 
-<iframe src="http://nbviewer.jupyter.org/gist/ahmedas91/4a5514b558d243940d12da39cdde3871" width="1000" height="5000"></iframe> 
+<iframe src="http://nbviewer.jupyter.org/gist/ahmedas91/7096efc710c6551495ffbf27c656774a" width="1000" height="5000"></iframe> 
 
