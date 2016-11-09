@@ -17,7 +17,7 @@ Depending on whether we are trying to predict the price trend or the exact price
 
 I chose 8 of the top companies in the S&P 500 in terms of market cap: AAP, BRK-B, GE, JNJ, MSFT, T, VZ, XOM. 
 
-<iframe width="950" height="400" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/19.embed"></iframe>
+<iframe width="950" height="450" frameborder="0" scrolling="no" src="https://plot.ly/~ahmedas91/19.embed"></iframe>
 
  The data sets for all the stocks are from May 5th, 1998 to May 4th, 2015 with total of 4277 days (the figure above shows a higher range).  Since we have 8 stocks and we are going to predict the price movement from 1 to 20 days ahead, we will have a total of 160 data sets to train and evaluate. But before proceeding with training the data, we had to check weather the data are balanced. The figure below shows the percentage of positive returns instances for each day and for each stock. Fortunately, the data does not need to be balanced since they are almost evenly split for all the stocks.
 
@@ -62,7 +62,7 @@ In this post, we demonstrated the use of one machine learning model, random fore
 
 4. Oshiro, Thais Mayumi, Pedro Santoro Perez, and José Augusto Baranauskas. "How Many Trees in a Random Forest?" Machine Learning and Data Mining in Pattern Recognition Lecture Notes in Computer Science (2012): 154-68. Web.
 
-Code to produce all the results above below:
+Code to produce all the results above:
 
 <iframe src="http://nbviewer.jupyter.org/gist/ahmedas91/9dca6aa31911bede1c8242ea861bd4f3" width="1000" height="6750"></iframe> 
 
