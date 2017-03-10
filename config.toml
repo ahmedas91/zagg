@@ -56,7 +56,7 @@ paginate = 10
 
     # Metadata used to drive integrations.
     googleAnalytics = "UA-77589510-1"
-    gravatarHash = "a37ea5697481d6e1d370d499c8f22694"
+    gravatarHash = ""
 
     # Sidebar social links, these must be full URLs.
     github = "https://github.com/ahmedas91"
